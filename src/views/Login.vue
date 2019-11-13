@@ -3,7 +3,7 @@
   <div class="login-main">
     <div class="login-form">
       <!--登录表单-->
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="form" :model="form">
         <el-form-item>
           <el-input
             placeholder="手机号"
@@ -17,12 +17,17 @@
             v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="checked">记住账号</el-checkbox>
-          <el-link type="info">忘记密码</el-link>
+          <el-row>
+            <el-col :span="12">
+              <el-checkbox v-model="checked">记住账号</el-checkbox>
+            </el-col>
+            <el-col :span="12">
+              <el-link type="info">忘记密码</el-link>
+            </el-col>
+          </el-row>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
-          <el-button>取消</el-button>
+          <el-button type="primary" class="form-btn" @click="onSubmit">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -56,6 +61,9 @@ export default {
   },
   methods: {
 
+    onSubmit () {
+    },
+
     doSubmit (formName) {
     },
     setSubmitBtnState (isLoading) {
@@ -83,5 +91,13 @@ export default {
 
   .login-form {
     width: 400px;
+    border: solid 1px;
+    border-radius: 4px;
+    padding: 20px;
+
+  }
+
+  .form-btn {
+    width: 100%;
   }
 </style>
