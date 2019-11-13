@@ -3,31 +3,34 @@
   <div class="login-main">
     <div class="login-form">
       <!--登录表单-->
-      <el-form ref="form" :model="form">
-        <el-form-item>
+      <el-form ref="form" :model="form" :rules="rules">
+        <el-form-item prop="username">
           <el-input
             placeholder="手机号"
             prefix-icon="el-icon-user"
-            v-model="form.name"></el-input>
+            v-model="form.username">
+          </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input
             placeholder="密码"
             prefix-icon="el-icon-lock"
-            v-model="form.password"></el-input>
+            type="password"
+            v-model="form.password">
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-row>
-            <el-col :span="12">
+            <el-col :span="12" align="left">
               <el-checkbox v-model="checked">记住账号</el-checkbox>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="12" align="right">
               <el-link type="info">忘记密码</el-link>
             </el-col>
           </el-row>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="form-btn" @click="onSubmit">登录</el-button>
+          <el-button type="primary" class="form-btn" @click="onSubmit('form')">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -40,18 +43,39 @@
 export default {
   name: 'Login',
   data () {
+    let validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('密码必填'))
+      } else {
+        if (this.form.password.length < 6) {
+          callback(new Error('密码长度小于6位'))
+        }
+        callback()
+      }
+    }
+    let validatePhone = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('手机号码必填'))
+      } else {
+        if (!(/^1[3456789]\d{9}$/.test(this.form.username))) {
+          callback(new Error('手机号码格式错误'))
+        }
+        callback()
+      }
+    }
     return {
       form: {
-        name: '',
+        username: '',
         password: ''
       },
       checked: true,
+      // 校验规则
       rules: {
         username: [
-          { required: true, message: '请输入账号', trigger: 'submit' }
+          { validator: validatePhone, trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'submit' }
+          { validator: validatePass, trigger: 'blur' }
         ]
       },
       brandInfo: null,
@@ -60,8 +84,17 @@ export default {
     }
   },
   methods: {
-
-    onSubmit () {
+    // 登录方法
+    onSubmit (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          return false
+        }
+      })
+      console.log(this.form)
+      console.log(this.checked)
     },
 
     doSubmit (formName) {
