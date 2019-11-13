@@ -3,7 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './plugins/element.js'
+import './assets/css/global-style.css'
+import axios from 'axios'
 
+axios.defaults.baseURL = 'www.baidu.com'
+
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 new Vue({

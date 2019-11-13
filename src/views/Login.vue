@@ -1,7 +1,7 @@
 <template>
   <!--登录页面-->
-  <div class="login-main">
-    <div class="login-form">
+  <div class="login-container">
+    <div class="login-box">
       <!--登录表单-->
       <el-form ref="form" :model="form" :rules="rules">
         <el-form-item prop="username">
@@ -107,9 +107,9 @@ export default {
     doLogin (param) {
     },
     /**
-     * 查询运营商的品牌信息
-     * @param mctId
-     */
+       * 查询运营商的品牌信息
+       * @param mctId
+       */
     loadBrandInfo (mctId) {
     }
   }
@@ -117,16 +117,18 @@ export default {
 </script>
 
 <style scoped>
-  .login-main {
-    width: 100%;
+  .login-container {
     height: 100%;
   }
 
-  .login-form {
+  .login-box {
     width: 400px;
     border: solid 1px;
     border-radius: 4px;
     padding: 20px;
+    position: absolute;
+    left: 60%;
+    top: 20%
 
   }
 
