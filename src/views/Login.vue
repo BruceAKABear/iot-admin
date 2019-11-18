@@ -2,6 +2,9 @@
   <!--登录页面-->
   <div class="login-container">
     <div class="login-box">
+      <div>
+        <img src="https://pay.weixin.qq.com/public/apply_sign_mobile/showQrcode?merchantId=113948217&sign=672aef9bf1b83517be58bbbe2212583b" alt="">
+      </div>
       <!--登录表单-->
       <el-form ref="form" :model="form" :rules="rules">
         <el-form-item prop="username">

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Home from '../views/Home'
+import WeixinMicroIn from '../views/WeixinMicroIn'
 
 Vue.use(VueRouter)
 
@@ -13,13 +14,18 @@ const routes = [
   },
   {
     path: '/',
-    redirect: 'login'
+    redirect: 'weixinMicroIn'
 
   },
   {
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/weixinMicroIn',
+    name: 'weixinMicroIn',
+    component: WeixinMicroIn
   }
   // 需要设置配置404及500
 ]

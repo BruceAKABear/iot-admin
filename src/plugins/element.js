@@ -1,5 +1,26 @@
 import Vue from 'vue'
-import { Button, Checkbox, Col, Form, FormItem, Input, Link, Row, Container, Header, Aside, Main } from 'element-ui'
+import {
+  Aside,
+  Button,
+  Cascader,
+  Checkbox,
+  Col,
+  Container,
+  DatePicker,
+  Dialog,
+  Form,
+  FormItem,
+  Header,
+  Input,
+  Link,
+  Main,
+  Message,
+  Option,
+  Row,
+  Select,
+  Upload,
+  Radio
+} from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Form)
@@ -13,3 +34,11 @@ Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
 Vue.use(Main)
+Vue.use(Upload)
+Vue.use(DatePicker)
+Vue.use(Option)
+Vue.use(Select)
+Vue.use(Cascader)
+Vue.use(Dialog)
+Vue.use(Radio)
+Vue.prototype.$message = Message
