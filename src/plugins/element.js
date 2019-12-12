@@ -3,10 +3,13 @@ import {
   Aside,
   Avatar,
   Button,
+  Breadcrumb,
+  BreadcrumbItem,
   Cascader,
   Checkbox,
   Col,
   Container,
+  Card,
   DatePicker,
   Dialog,
   Form,
@@ -31,6 +34,8 @@ import {
 
 Vue.use(Avatar)
 Vue.use(Button)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
@@ -39,6 +44,7 @@ Vue.use(Link)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Container)
+Vue.use(Card)
 Vue.use(Header)
 Vue.use(Aside)
 Vue.use(Main)
