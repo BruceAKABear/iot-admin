@@ -1,24 +1,26 @@
 <template>
   <!--登录页面-->
   <div class="micro-checkin-container">
+    <!--提示头-->
     <div class="checkin-tip">
       <div class="checkin-tip-header">
         <i class="el-icon-message-solid"></i>
-        <span>自主开通支付功能重要提示</span>
+        <span>小微商户升级为特约商户须知</span>
       </div>
       <div class="checkin-tip-body">
-        <span>1.目前对于非蓝牙类设备运营商不能使用自主通达</span>
+        <span>1.所有必填项请认证填写</span>
         <span>2.目前自助通道只支持微信支付</span>
         <span>3.目前自主支付通道支持个人和企业两种类型</span>
         <span>4.如果是个人类型开通，没有分账功能</span>
         <span>5.请务必将信息填写正确</span>
       </div>
     </div>
+    <!--内容体-->
     <div class="chenckin-info-body">
-      <!--小微入住信息-->
-      <el-form ref="form" :model="form" :rules="rules" label-width="20%">
-        <!--上传身份证正面-->
-        <el-form-item prop="img" label="身份证头像面">
+      <!--小微入升级-->
+      <el-form ref="form" :model="form" :rules="rules" label-width="30%">
+        <!--上传营业执照扫描件-->
+        <el-form-item prop="img" label="营业执照扫描件">
           <el-upload
             ref="clearIdCardCopy"
             name="media"
@@ -49,57 +51,40 @@
             <div class="tip" slot="tip">只能上传jpg/png文件，且图片大小不超过2Mb</div>
           </el-upload>
         </el-form-item>
-        <!--上传身份证反面-->
-        <el-form-item prop="idCardNational" label="身份证国徽面">
-          <el-upload
-            ref="clearIdCardNational"
-            name="media"
-            accept="image/png, image/jpeg"
-            :action="uploadImgUrl"
-            list-type="picture-card"
-            :auto-upload="true"
-            :disabled="!canUploadIdCardNational"
-            :on-success="handleIdCardNationalUploadSuccess"
-            :before-upload="handleImgSize"
-          >
-            <i slot="default" class="el-icon-plus"></i>
-            <div slot="file" slot-scope="{file}">
-              <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-              <span class="el-upload-list__item-actions">
-                  <!--预览图片按钮-->
-                 <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-                   <i class="el-icon-zoom-in"></i>
-                 </span>
-                  <span v-if="!canUploadIdCardNational" class="el-upload-list__item-delete"
-                        @click="handleRemoveIdCardNational(file)">
-                    <i class="el-icon-delete"></i>
-                  </span>
-                </span>
-            </div>
-            <!--图片提示信息-->
-            <div class="tip" slot="tip">只能上传jpg/png文件，且图片大小不超过2Mb</div>
-          </el-upload>
-        </el-form-item>
-        <!--图片预览地址-->
-        <el-dialog :visible.sync="imgDialogVisible">
-          <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
-        <!--身份证姓名-->
-        <el-form-item prop="idCardName" label="姓名">
+        <!--营业执照注册号-->
+        <el-form-item prop="idCardName" label="营业执照注册号">
           <el-input
-            placeholder="身份证上姓名"
+            placeholder="营业执照注册号"
             v-model="form.idCardName">
           </el-input>
         </el-form-item>
-        <!--身份证号-->
-        <el-form-item prop="idCardNumber" label="身份证号">
+        <!--营业执照注册号-->
+        <el-form-item prop="idCardName" label="营业执照名称">
           <el-input
-            placeholder="身份证号"
-            v-model="form.idCardNumber">
+            placeholder="营业执照名称"
+            v-model="form.idCardName">
           </el-input>
         </el-form-item>
+        <!--经营者姓名/法定代表人-->
+        <el-form-item prop="idCardName" label="经营者姓名/法定代表人">
+          <el-input
+            placeholder="经营者姓名/法定代表人"
+            v-model="form.idCardName">
+          </el-input>
+          <div class="tip">
+            <span>请填写营业执照上的经营者/法人姓名必须与小微商户联系人相同</span>
+          </div>
+        </el-form-item>
+        <!--营业执照注册号-->
+        <el-form-item prop="idCardName" label="注册地址">
+          <el-input
+            placeholder="注册地址"
+            v-model="form.idCardName">
+          </el-input>
+        </el-form-item>
+        <!--营业期限-->
         <!--身份证有效期-->
-        <el-form-item prop="idCardValidTime" label="身份证有效期">
+        <el-form-item prop="idCardValidTime" label="营业期限">
 
           <div class="id-card-valid-time-inner">
             <div class="id-card-valid-time-inner-opeions">
@@ -111,8 +96,8 @@
               unlink-panels
               type="daterange"
               range-separator="至"
-              start-placeholder="身份证生效日期"
-              end-placeholder="身份证失效日期"
+              start-placeholder="生效日期"
+              end-placeholder="失效日期"
               value-format="yyyy-MM-dd"
               @change="shenfenzhengrange"
               v-show="radioValue==='1'"
@@ -121,16 +106,25 @@
             <el-date-picker
               v-model="value2"
               type="date"
-              placeholder="身份证生效日期"
+              placeholder="生效日期"
               value-format="yyyy-MM-dd"
               @change="longRange"
               v-show="radioValue==='2'"
             >
             </el-date-picker>
-
           </div>
           <div class="tip">
-            <span>注意：身份证有效期必须填写正确</span>
+            <span>注意：请填写营业执照上的营业期限结束时间需大于开始时间有效期必须大于60天</span>
+          </div>
+        </el-form-item>
+        <!--开户名称-->
+        <el-form-item prop="idCardName" label="开户名称">
+          <el-input
+            placeholder="开户名称"
+            v-model="form.idCardName">
+          </el-input>
+          <div class="tip">
+            <span>请填写对公账户，开户名称必须与营业执照上的“商户名称”一致</span>
           </div>
         </el-form-item>
         <!--开户银行-->
@@ -147,6 +141,7 @@
         <!--开户银行区域编码-->
         <el-form-item prop="bankAddressCode" label="开户银行所在区域">
           <el-cascader
+            placeholder="请选择开户银行所在区域"
             size="large"
             :options="options"
             v-model="form.bankAddressCode"
@@ -154,19 +149,7 @@
             clearable>
           </el-cascader>
         </el-form-item>
-        <!--开户银行的全称，但是17家直联银行不用填写-->
-        <!--        <el-form-item prop="bankAddressCode" label="开户银行全称（含支行)" v-if="bankAddressCodeShow">-->
-        <!--          <el-input-->
-        <!--            placeholder="开户银行全称（含支行)"-->
-        <!--            v-model="form.idCardName">-->
-        <!--          </el-input>-->
-        <!--          <div class="tip">-->
-        <!--            <span>-->
-        <!--              示例：深圳农村商业银行XXX支行-->
-        <!--            </span>-->
-        <!--          </div>-->
-        <!--        </el-form-item>-->
-        <!--银行卡卡号，注意一点有些银行卡是没法开的-->
+        <!--开户银行卡卡号-->
         <el-form-item prop="accountNumber" label="银行卡号">
           <el-input
             placeholder="银行卡号"
@@ -177,83 +160,7 @@
               </span>
           </div>
         </el-form-item>
-        <!--服务类型-->
-        <el-form-item prop="storeName" label="服务类型">
-          <el-select v-model="form.accountBank" placeholder="请选服务类型">
-            <el-option
-              v-for="(item,index) in serviceTypeArray"
-              :key="index"
-              :label="item"
-              :value="item">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <!--服务场地编码-->
-        <el-form-item prop="storeAddressCode" label="服务场地">
-          <el-cascader
-            size="large"
-            :options="options"
-            v-model="form.storeAddressCode"
-            @change="handStoreAddressCodeChange"
-            clearable>
-          </el-cascader>
-        </el-form-item>
-        <!--门店外部-->
-        <el-form-item prop="storeEntrancePic" label="服务场地入口照片">
-          <el-upload
-            ref="clearStoreEntrancePic"
-            name="media"
-            accept="image/png, image/jpeg"
-            :action="uploadImgUrl"
-            list-type="picture-card"
-            :auto-upload="true"
-            :disabled="!canUploadStoreEntrancePic"
-            :on-success="handleStoreEntrancePicUploadSuccess"
-            :before-upload="handleImgSize"
-          >
-            <i slot="default" class="el-icon-plus"></i>
-            <div slot="file" slot-scope="{file}">
-              <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-              <span class="el-upload-list__item-actions">
-                <!--预览图片按钮-->
-              <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-                   <i class="el-icon-zoom-in"></i>
-              </span>
-                  <span v-if="!canUploadStoreEntrancePic" class="el-upload-list__item-delete"
-                        @click="handleStoreEntrancePicRemove(file)">
-                    <i class="el-icon-delete"></i>
-                  </span>
-                </span>
-            </div>
-          </el-upload>
-        </el-form-item>
-        <el-form-item prop="indoorPic" label="店内环境照片">
-          <el-upload
-            ref="clearIndoorPic"
-            name="media"
-            accept="image/png, image/jpeg"
-            :action="uploadImgUrl"
-            list-type="picture-card"
-            :auto-upload="true"
-            :disabled="!canUploadIndoorPic"
-            :on-success="handleIndoorPicSuccess"
-            :before-upload="handleImgSize"
-          >
-            <i slot="default" class="el-icon-plus"></i>
-            <div slot="file" slot-scope="{file}">
-              <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-              <span class="el-upload-list__item-actions">
-                   <!--预览图片按钮-->
-              <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-                   <i class="el-icon-zoom-in"></i>
-              </span>
-                  <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleIndoorPicRemove(file)">
-                    <i class="el-icon-delete"></i>
-                  </span>
-                </span>
-            </div>
-          </el-upload>
-        </el-form-item>
+        <!--简称-->
         <el-form-item prop="merchantShortname" label="运营商简称">
           <el-input
             placeholder="运营商简称"
@@ -263,25 +170,6 @@
             <span>示例：京东智能</span>
           </div>
         </el-form-item>
-        <el-form-item prop="servicePhone" label="客服电话">
-          <el-input
-            placeholder="客服电话"
-            v-model="form.servicePhone">
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="contactPhone" label="手机号码">
-          <el-input
-            placeholder="手机号码"
-            v-model="form.contactPhone">
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="contactEmail" label="联系邮箱">
-          <el-input
-            placeholder="联系邮箱"
-            v-model="form.contactEmail">
-          </el-input>
-        </el-form-item>
-
       </el-form>
     </div>
     <div class="checkin-footer">
@@ -325,6 +213,12 @@ export default {
       radioValue: '1',
       // 省市区数据
       options: regionData,
+      organizationTypeArray: [
+        { name: '企业', value: 2 },
+        { name: '个体工商户', value: 4 },
+        { name: '党政、机关及事业单位', value: 3 },
+        { name: '其他组织', value: 1708 }
+      ],
       // 默认提供的银行
       accountArray: ['工商银行', '交通银行', '招商银行', '民生银行', '中信银行', '浦发银行', '兴业银行', '光大银行', '广发银行',
         '平安银行', '北京银行', '华夏银行', '农业银行', '建设银行', '邮政储蓄银行', '中国银行', '宁波银行'],
@@ -517,7 +411,7 @@ export default {
   .micro-checkin-container {
     position: absolute;
     left: 20%;
-    width: 1000px;
+    width: 800px;
 
   }
 
@@ -537,6 +431,8 @@ export default {
   }
 
   .chenckin-info-body {
+    text-align: left;
+    width: 600px;
 
   }
 

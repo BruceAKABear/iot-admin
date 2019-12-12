@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
-import Home from '../views/Home'
-import WeixinMicroIn from '../views/WeixinMicroIn'
+import Home from '../views/home/Home'
+import WeixinMicroCheckInIn from '../views/WeixinMicroCheckIn'
+import WeixinMicroUpdate from '../views/WeixinMicroUpdate'
+import WeixinMicroModifyBankInfo from '../views/WeixinMicroModifyBankInfo'
+import WeixinMicroModifyContactInfo from '../views/WeixinMicroModifyContactInfo'
+import GoodsList from '../views/goods/GoodsList'
 
 Vue.use(VueRouter)
 
@@ -14,18 +18,36 @@ const routes = [
   },
   {
     path: '/',
-    redirect: 'weixinMicroIn'
-
-  },
-  {
-    path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'goodslist',
+        name: 'goodslist',
+        component: GoodsList
+      }
+
+    ]
   },
   {
-    path: '/weixinMicroIn',
-    name: 'weixinMicroIn',
-    component: WeixinMicroIn
+    path: '/weixinMicroCheckInIn',
+    name: 'weixinMicroCheckInIn',
+    component: WeixinMicroCheckInIn
+  },
+  {
+    path: '/weixinMicroUpdate',
+    name: 'weixinMicroUpdate',
+    component: WeixinMicroUpdate
+  },
+  {
+    path: '/weixinMicroModifyBankInfo',
+    name: 'weixinMicroModifyBankInfo',
+    component: WeixinMicroModifyBankInfo
+  },
+  {
+    path: '/weixinMicroModifyContactInfo',
+    name: 'weixinMicroModifyContactInfo',
+    component: WeixinMicroModifyContactInfo
   }
   // 需要设置配置404及500
 ]

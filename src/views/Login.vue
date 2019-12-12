@@ -1,41 +1,42 @@
 <template>
   <!--登录页面-->
-  <div class="login-container">
+  <div class="login-page-container">
     <div class="login-box">
-      <div>
-        <img src="https://pay.weixin.qq.com/public/apply_sign_mobile/showQrcode?merchantId=113948217&sign=672aef9bf1b83517be58bbbe2212583b" alt="">
+      <div class="login-box-header">
+        用户名密码登录
       </div>
-      <!--登录表单-->
-      <el-form ref="form" :model="form" :rules="rules">
-        <el-form-item prop="username">
-          <el-input
-            placeholder="手机号"
-            prefix-icon="el-icon-user"
-            v-model="form.username">
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            placeholder="密码"
-            prefix-icon="el-icon-lock"
-            type="password"
-            v-model="form.password">
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-row>
-            <el-col :span="12" align="left">
-              <el-checkbox v-model="checked">记住账号</el-checkbox>
-            </el-col>
-            <el-col :span="12" align="right">
-              <el-link type="info">忘记密码</el-link>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" class="form-btn" @click="onSubmit('form')">登录</el-button>
-        </el-form-item>
-      </el-form>
+      <div class="login-box-body">
+        <el-form ref="form" :model="form" :rules="rules">
+          <el-form-item prop="username">
+            <el-input
+              placeholder="手机号"
+              prefix-icon="el-icon-user"
+              v-model="form.username">
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              placeholder="密码"
+              prefix-icon="el-icon-lock"
+              type="password"
+              v-model="form.password">
+            </el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-row>
+              <el-col :span="12" align="left">
+                <el-checkbox v-model="checked">记住账号</el-checkbox>
+              </el-col>
+              <el-col :span="12" align="right">
+                <el-link type="info">忘记密码</el-link>
+              </el-col>
+            </el-row>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" class="form-btn" @click="onSubmit('form')">登录</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
     <div class="login-footer"></div>
   </div>
@@ -75,10 +76,10 @@ export default {
       // 校验规则
       rules: {
         username: [
-          { validator: validatePhone, trigger: 'blur' }
+          { validator: validatePhone, trigger: 'change' }
         ],
         password: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass, trigger: 'change' }
         ]
       },
       brandInfo: null,
@@ -91,8 +92,11 @@ export default {
     onSubmit (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          // 验证
           alert('submit!')
+          this.$router.push('home')
         } else {
+          this.$message.error('登录信息输入错误,请正确填写')
           return false
         }
       })
@@ -120,19 +124,24 @@ export default {
 </script>
 
 <style scoped>
-  .login-container {
+  .login-page-container{
     height: 100%;
+    background-color: #2c3e50;
   }
-
   .login-box {
     width: 400px;
-    border: solid 1px;
-    border-radius: 4px;
+    border-radius: 5px;
     padding: 20px;
     position: absolute;
-    left: 60%;
-    top: 20%
-
+    left: 70%;
+    top: 40%;
+    background-color: white;
+  }
+  .login-box-header{
+    color: red;
+  }
+  .login-box-body{
+    margin-top: 10px;
   }
 
   .form-btn {
